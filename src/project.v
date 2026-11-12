@@ -2,7 +2,7 @@
 
 module ram (
     input  wire        clk,
-    input  wire [3:0]  addr, // Scaled to 16 instructions so OpenLane builds fast!
+    input  wire [3:0]  addr,
     input  wire [39:0] data,
     input  wire        we,
     output wire [39:0] out
@@ -46,7 +46,6 @@ module alu (
     input  wire [3:0] sel,
     output wire [7:0] out
 );
-    // Note: Division (a / b) removed for fast synthesis; add back if needed
     assign out = (sel == 4'b0101) ? (a + b)  :
                  (sel == 4'b0110) ? (a - b)  :
                  (sel == 4'b0111) ? (a * b)  :
@@ -143,21 +142,19 @@ module chip (
     assign gpio = {g1, g0};
 endmodule
 
-// Required Tiny Tapeout Top-Level Wrapper
 module tt_um_fruzinofruzino_zeron_cpu (
-    input  wire [7:0] ui_in,    // Dedicated inputs
-    output wire [7:0] uo_out,   // Dedicated outputs
-    input  wire [7:0] uio_in,   // IOs: Input path
-    output wire [7:0] uio_out,  // IOs: Output path
-    output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
-    input  wire       ena,      // Always 1 when the design is powered
-    input  wire       clk,      // Clock
-    input  wire       rst_n     // Active-low reset
+    input  wire [7:0] ui_in,
+    output wire [7:0] uo_out,
+    input  wire [7:0] uio_in,
+    output wire [7:0] uio_out,
+    output wire [7:0] uio_oe,
+    input  wire       ena,
+    input  wire       clk,
+    input  wire       rst_n
 );
     wire rst = !rst_n;
     wire [111:0] gpio;
 
-    // Feed Tiny Tapeout pins into program loader so logic isn't optimized away
     wire [39:0] prog_data = {ui_in, uio_in, ui_in, uio_in, ui_in};
 
     chip zeron_dual_core (
@@ -169,10 +166,9 @@ module tt_um_fruzinofruzino_zeron_cpu (
         .gpio(gpio)
     );
 
-    // Map lower 16 bits of the 112-bit dual-core GPIO to output pins
     assign uo_out  = gpio[7:0];
     assign uio_out = gpio[15:8];
-    assign uio_oe  = 8'hFF; // Set bidirectional pins as outputs
+    assign uio_oe  = 8'hFF;
 
     wire _unused = &{ena, ui_in[6:4], gpio[111:16], 1'b0};
 endmodule
