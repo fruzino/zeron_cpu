@@ -17,7 +17,7 @@ module ram (
     assign out = mem[addr];
 endmodule
 
-module pc(
+module pc (
     input  wire        clk,
     input  wire        rst,
     input  wire        we,     
@@ -142,7 +142,7 @@ module chip (
     assign gpio = {g1, g0};
 endmodule
 
-module tt_um_fruzinofruzino_zeron_cpu user_project (
+module tt_um_fruzinofruzino_zeron_cpu (
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
     input  wire [7:0] uio_in,
