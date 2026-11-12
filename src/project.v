@@ -142,7 +142,7 @@ module chip (
     assign gpio = {g1, g0};
 endmodule
 
-module tt_um_fruzinofruzino_zeron_cpu (
+module tt_um_fruzinofruzino_zeron_cpu user_project (
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
     input  wire [7:0] uio_in,
