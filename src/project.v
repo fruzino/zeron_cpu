@@ -160,7 +160,7 @@ module tt_um_fruzinofruzino_zeron_cpu (
     chip zeron_dual_core (
         .clk(clk),
         .rst(rst),
-        .prog_we(ui_in[7]),
+        .prog_we(ui_in[7:7]),
         .prog_addr(ui_in[3:0]),
         .prog_data(prog_data),
         .gpio(gpio)
