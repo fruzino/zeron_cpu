@@ -1,7 +1,6 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
-/* Testbench instantiates tt_um_fruzinofruzino_zeron_cpu for cocotb testing */
 module tb ();
   initial begin
     $dumpfile("tb.fst");
@@ -9,9 +8,14 @@ module tb ();
     #1;
   end
 
-  reg clk, rst_n, ena;
-  reg [7:0] ui_in, uio_in;
-  wire [7:0] uo_out, uio_out, uio_oe;
+  reg clk;
+  reg rst_n;
+  reg ena;
+  reg [7:0] ui_in;
+  reg [7:0] uio_in;
+  wire [7:0] uo_out;
+  wire [7:0] uio_out;
+  wire [7:0] uio_oe;
 
 `ifdef GL_TEST
   wire VPWR = 1'b1;
